@@ -1,14 +1,16 @@
+import myGif from '../images/pokedex.gif'
+
 function Home() {
   return (
-    <>
-      <h1>Pokedex Express</h1>
-      <p>Bienvenides!!</p>
-      <p>Selecciona un pokemon para ver sus detalles</p>
-      <p>¡Diviértete explorando el mundo de los pokemones!</p>
+    <div className='home'>
+      <div className='title'>Pokedex Express</div>
 
-      <Link to="/pokemon">Ver Pokemons</Link>
-
-    </>
+      <img src={myGif} alt="prof-oak-arroja-pokebola" />
+      <button className='btn-ver-pokemons'>
+        <Link to="/pokemon">Ver Pokemons</Link>
+      </button>
+      
+    </div>
   )
 }
 
