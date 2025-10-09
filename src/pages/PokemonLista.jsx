@@ -30,13 +30,12 @@ function PokemonLista() {
     fetch(`https://pokeapi.co/api/v2/pokemon?limit=20&offset=${pokemones.length}`)
       .then(res => res.json())
       .then(data => { 
-        // setPokemones(data.results)
-        // Fetch adicional para obtener todas las propiedades, incluyendo ID
+        // Fetch adicional para obtener todas las propiedades que necesito
         Promise.all(data.results.map(pokemon => 
           fetch(pokemon.url)
             .then(res => res.json())
-            .then(details => ({ ...pokemon, id: details.id, types: details.types, sprites: details.sprites , stats: details.stats, moves: details.moves }))
-        )).then(pokemonesConId => setPokemones([...pokemones, ...pokemonesConId]))
+            .then(details => ({ ...pokemon, id: details.id, sprites: details.sprites }))
+        )).then(pokemonesConPropiedades => setPokemones([...pokemones, ...pokemonesConPropiedades]))
       })
   }
 
