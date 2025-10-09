@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom'
+import pokedexIcono from '../images/pokedex-icono.svg'
+
 function Navbar() {
   return (
     <nav>
       
       <div className='nav-title'>
-        <img src="./src/images/pokedex-icono.svg" width={50} alt="Logo" />
+        <img src={pokedexIcono} width={50} alt="Logo" />
         Pokedex Express
       </div>
       <div className='nav-links'>
