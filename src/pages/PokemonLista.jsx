@@ -6,38 +6,36 @@ function PokemonLista() {
 
   const [pokemones, setPokemones] = useState([])
 
-  // useEffect(() => {
-  //   fetch('https://pokeapi.co/api/v2/pokemon?limit=20&offset=0')
-  //     .then(res => res.json())
-  //     .then(data => setPokemones(data.results))
-  // }, [])
 
-  useEffect(() => {
+  function getPokemons()
+  {
     fetch(`https://pokeapi.co/api/v2/pokemon?limit=20&offset=${pokemones.length}`)
       .then(res => res.json())
-      .then(data => { 
-        // setPokemones(data.results)
-        // Fetch adicional para obtener todas las propiedades, incluyendo ID
-        Promise.all(data.results.map(pokemon => 
-          fetch(pokemon.url)
-            .then(res => res.json())
-            .then(details => ({ ...pokemon, id: details.id, types: details.types, sprites: details.sprites , stats: details.stats, moves: details.moves }))
-        )).then(pokemonesConId => setPokemones(pokemonesConId))
-      })
+      .then(data => setPokemones([...pokemones, ...data.results.map((p) => ({
+        name: p.name,
+        id: obtenerIdDesdeLink(p.url),
+        sprites: {
+          other: {
+            dream_world: {
+              front_default: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${obtenerIdDesdeLink(p.url)}.svg`
+            }
+          }
+        }
+      }))]))
+      .catch(err => console.log(err))
+  }
+
+  function obtenerIdDesdeLink(url) {
+    const match = url.match(/\/(\d+)\/?$/);
+    return match ? match[1] : null;
+  }
+
+  useEffect(() => {
+    getPokemons()
   }, [])
 
   const cargarMasPokemones = () => {
-    fetch(`https://pokeapi.co/api/v2/pokemon?limit=20&offset=${pokemones.length}`)
-      .then(res => res.json())
-      .then(data => { 
-        // setPokemones(data.results)
-        // Fetch adicional para obtener todas las propiedades, incluyendo ID
-        Promise.all(data.results.map(pokemon => 
-          fetch(pokemon.url)
-            .then(res => res.json())
-            .then(details => ({ ...pokemon, id: details.id, types: details.types, sprites: details.sprites , stats: details.stats, moves: details.moves }))
-        )).then(pokemonesConId => setPokemones([...pokemones, ...pokemonesConId]))
-      })
+    getPokemons()
   }
 
 
