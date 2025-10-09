@@ -7,6 +7,7 @@ import PokemonDetalle from './pages/PokemonDetalle.jsx'
 import Navbar from './components/Navbar.jsx'
 // import imagenDeFondo from './images/fondo_claro.png'
 import imagenDeFondo from './images/pokeball_pattern.jpg'
+import { HashRouter } from "react-router-dom";
 
 
 function App() {
@@ -22,7 +23,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/pokemon" element={<PokemonLista />} />
           <Route path="/pokemon/:name" element={<PokemonDetalle />} />
-          </Routes>
+        </Routes>        
       </div>
     </div>
   )
