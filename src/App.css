@@ -426,7 +426,14 @@ nav ul {
 .pokemon-detalle-info-valor {
   font-size: 1.2rem;
   width: 80%;
-  padding-left: 10px;
+  padding-left: 10px;  
+  text-transform: capitalize;
+}
+
+.pokemon-detalle-info-valor2 {
+  font-size: 1.2rem;
+  width: 80%;
+  padding-left: 10px;  
 }
 
 .pokemon-detalle-info-descripcion-container {
@@ -436,7 +443,6 @@ nav ul {
   max-height: 150px;  
   overflow-y: auto;
   padding-right: 10px;
-  
 }
 .pokemon-detalle-info-descripcion {
   font-size: 1rem;
@@ -535,6 +541,12 @@ nav ul {
   }
   .pokemon-detalle-info-titulo {
     margin-bottom: 10px;
+  }
+  
+  .pokemon-detalle-info-valor2 {
+    font-size: 1.2rem;
+    width: 100%;
+    padding-left: 10px;  
   }
 }
 

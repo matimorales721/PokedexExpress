@@ -50,7 +50,7 @@ function PokemonDetalle() {
 
       <div className='pokemon-detalle-info'>
         <h3 className='pokemon-detalle-info-titulo'>Descripción</h3>
-        <div className='pokemon-detalle-info-valor '>
+        <div className='pokemon-detalle-info-valor2 '>
           <div className='pokemon-detalle-info-descripcion'>
             {pokemon.species.flavor_text_entries.find(entry => entry.language.name === 'es')?.flavor_text}
           </div>
