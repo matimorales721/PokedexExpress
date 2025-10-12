@@ -9,6 +9,10 @@ function Home() {
       <button className='btn-ver-pokemons'>
         <Link to="/pokemon">Ver Pokemons</Link>
       </button>
+      <br />
+      <button className='btn-ver-pokemons'>
+        <Link to="/favoritos">Ver Favoritos</Link>
+      </button>
       
     </div>
   )

@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import pokebola from '../images/pokebola.png'
+import BotonFavoritos from '../components/BotonFavoritos'
 
 function PokemonDetalle() {
 
@@ -11,7 +12,13 @@ function PokemonDetalle() {
   useEffect(() => {
     fetch(`https://pokeapi.co/api/v2/pokemon/${name}`)
       .then(res => res.json())
-      .then(data => setPokemon(data))
+      .then(data => {
+        fetch(data.species.url)
+          .then(res => res.json())
+          .then(speciesData => {
+            setPokemon({ ...data, species: speciesData })
+          }
+        )})
   }, [name])
 
   if (!pokemon) return <p>Cargando...</p>
@@ -20,7 +27,11 @@ function PokemonDetalle() {
 
   return (
     <div className='pokemon-detalle'>
-      <div className='contenedor-btn-volver'><button className='btn-volver'><Link to='/pokemon'> ← Volver</Link></button></div>
+      <div className='contenedor-btn-volver'>
+        <button className='btn-volver'><Link to='/pokemon'> ← Volver</Link></button>
+        <BotonFavoritos pokemon={pokemon} className="detalle-favorite-btn" />
+      </div>
+      
       <div className='title'>{pokemon.name} - <span className='pokemon-id'>#{id3}</span></div>
       
       <div className="wrap">
@@ -32,8 +43,17 @@ function PokemonDetalle() {
         <h3 className='pokemon-detalle-info-titulo'>Tipos</h3>
         <div className='pokemon-detalle-info-valor tagBox'>
           {pokemon.types.map(type => (
-            <div className='tagTipo' key={type.type.name}>{type.type.name}</div>
+            <div className='type-badge tagTipo' key={type.type.name}>{type.type.name}</div>
           ))}
+        </div>
+      </div>
+
+      <div className='pokemon-detalle-info'>
+        <h3 className='pokemon-detalle-info-titulo'>Descripción</h3>
+        <div className='pokemon-detalle-info-valor '>
+          <div className='pokemon-detalle-info-descripcion'>
+            {pokemon.species.flavor_text_entries.find(entry => entry.language.name === 'es')?.flavor_text}
+          </div>
         </div>
       </div>
 

@@ -1,3 +1,6 @@
+import { Link } from 'react-router-dom'
+import BotonFavoritos from './BotonFavoritos'
+
 function PokemonTarjeta({ pokemon }) {
     const id3 = String(pokemon.id).padStart(3, '0');
     return (
@@ -9,8 +12,9 @@ function PokemonTarjeta({ pokemon }) {
                     <span className='pokemon-id'>#{id3}</span>
                 </div>
             </Link>
+            <BotonFavoritos pokemon={pokemon} className="card-favorite-btn" />
         </div>
     );
 }
-import { Link } from 'react-router-dom'
+
 export default PokemonTarjeta;
