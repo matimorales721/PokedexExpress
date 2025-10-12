@@ -42,15 +42,15 @@ function PokemonLista() {
   if (!pokemones) return <p>Cargando...</p>
 
   return (
-    <>
+    <div className='pokemon-list'>
       <div className='title'>Lista de Pokemons</div>
-      <div className='pokemon-card-box'>        
+      <div className='pokemon-card-box Container-Fondo-Transparente'>        
         {pokemones.map(pokemon => (
           <PokemonTarjeta key={pokemon.name} pokemon={pokemon} />
         ))}
       </div>
       <button className='btn-cargar-mas' onClick={cargarMasPokemones}>Ver más pokemones</button>
-    </>
+    </div>
   )
 }
 

@@ -5,7 +5,7 @@ function Home() {
     <div className='home'>
       <div className='title'>Pokedex Express</div>
 
-      <img src={myGif} alt="prof-oak-arroja-pokebola" />
+      <img src={myGif} alt="pokedex" />
       <button className='btn-ver-pokemons'>
         <Link to="/pokemon">Ver Pokemons</Link>
       </button>

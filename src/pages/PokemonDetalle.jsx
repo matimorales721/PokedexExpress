@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom'
 import { useState, useEffect } from 'react'
+import pokebola from '../images/pokebola.png'
 
 function PokemonDetalle() {
 
@@ -15,12 +16,17 @@ function PokemonDetalle() {
 
   if (!pokemon) return <p>Cargando...</p>
 
+  const id3 = String(pokemon.id).padStart(3, '0');
+
   return (
     <div className='pokemon-detalle'>
-      <button className='btn-volver'><Link to='/pokemon'> ← Volver</Link></button>
-      <div className='title'>{pokemon.name} - <span className='pokemon-id'>#{pokemon.id}</span></div>
+      <div className='contenedor-btn-volver'><button className='btn-volver'><Link to='/pokemon'> ← Volver</Link></button></div>
+      <div className='title'>{pokemon.name} - <span className='pokemon-id'>#{id3}</span></div>
       
-      <img src={pokemon.sprites.other['official-artwork'].front_default} alt={pokemon.name} />
+      <div className="wrap">
+        <img className="bg" src={pokebola} alt='Pokebola' />
+        <img className="fg" src={pokemon.sprites.other['official-artwork'].front_default} alt={pokemon.name} />
+      </div>
       
       <div className='pokemon-detalle-info'>
         <h3 className='pokemon-detalle-info-titulo'>Tipos</h3>
@@ -34,9 +40,9 @@ function PokemonDetalle() {
       <div className='pokemon-detalle-info'>
         <h3 className='pokemon-detalle-info-titulo'>Stats</h3>
         <div className='pokemon-detalle-info-valor'>
-          <div className='listBox'>
+          <div className='listBoxStats'>
             {pokemon.stats.map(stat => (
-              <div className='listItem' key={stat.stat.name}>{stat.stat.name}: {stat.base_stat}</div>
+              <div className='listItem' key={stat.stat.name}><div className='listItemtitulo' key={stat.stat.name}>{stat.stat.name}:</div><div className='listItemValor' key={stat.stat.name + 'value'}>{ stat.base_stat }</div></div>
             ))}
           </div>
         </div>
@@ -54,7 +60,7 @@ function PokemonDetalle() {
       </div>
 
       <div className='pokemon-detalle-info'>
-        <h3 className='pokemon-detalle-info-titulo'><div className='titulo-vertical'>Movimientos</div></h3>
+        <h3 className='pokemon-detalle-info-titulo'>Movimientos</h3>
         <div className='pokemon-detalle-info-valor'>
           <div className='listBox'>
           {pokemon.moves.map(move => (
