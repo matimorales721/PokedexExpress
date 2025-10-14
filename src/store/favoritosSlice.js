@@ -1,38 +1,40 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-// Estado inicial de favoritos
 const initialState = {
-  favoritos: [], // Array de objetos pokemon favoritos
+  favoritos: [],
 };
 
-// Slice de favoritos con reducers
 const favoritosSlice = createSlice({
   name: "favoritos",
   initialState,
   reducers: {
+    
     // Agregar un pokemon a favoritos
     addToFavoritos: (state, action) => {
       const pokemon = action.payload;
-      // Verificar que no esté ya en favoritos
       const isAlreadyFavorito = state.favoritos.some((fav) => fav.id === pokemon.id);
 
       if (!isAlreadyFavorito) {
         console.log("Agregando a favoritos:", pokemon);
-        state.favoritos.push({
+        
+        // Mi elemento favorito
+        const favorito = {
           id: pokemon.id,
           name: pokemon.name,
           sprite: pokemon.sprites?.other?.["official-artwork"]?.front_default || pokemon.sprites?.front_default,
-        });
+        };
+
+        state.favoritos.push(favorito);
       }
     },
 
-    // Quitar un pokemon de favoritos
     removeFromFavoritos: (state, action) => {
       const pokemonId = action.payload;
+
+      // me quedo con los de id <> al que quiero eliminar
       state.favoritos = state.favoritos.filter((fav) => fav.id != pokemonId);
     },
 
-    // Limpiar todos los favoritos
     clearFavoritos: (state) => {
       state.favoritos = [];
     },

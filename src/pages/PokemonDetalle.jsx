@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import pokebola from '../images/pokebola.png'
 import BotonFavoritos from '../components/BotonFavoritos'
+import Loading from '../images/loading.gif'
 
 function PokemonDetalle() {
 
@@ -21,7 +22,7 @@ function PokemonDetalle() {
         )})
   }, [name])
 
-  if (!pokemon) return <p>Cargando...</p>
+  if (!pokemon) return <div className='loading'><img src={Loading} alt="Cargando..." /></div>;
 
   const id3 = String(pokemon.id).padStart(3, '0');
 

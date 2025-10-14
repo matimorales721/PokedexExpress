@@ -3,6 +3,8 @@ import { useSelector } from 'react-redux'
 import { useState, useEffect } from 'react'
 import { selectFavoritosCount } from '../store/favoritosSlice'
 import pokedexIcono from '../images/pokedex-icono.svg'
+import IconoFavorito from '../images/favorito.png'
+import IconoHome from '../images/home.png'
 
 function Navbar() {
   const favoritosCount = useSelector(selectFavoritosCount)
@@ -62,14 +64,17 @@ function Navbar() {
         <div className={`nav-links ${isMenuOpen ? 'nav-links-open' : ''}`}>
           <ul>
             <li>
-              <Link to="/" onClick={closeMenu}>Home</Link>
+              <Link to="/" onClick={closeMenu}>
+                <img className="favorito-imagen" src={IconoHome} alt="home" />
+                Home
+              </Link>
             </li>
             <li>
               <Link to="/pokemon" onClick={closeMenu}>Pokémon</Link>
             </li>
             <li>
               <Link to="/favoritos" onClick={closeMenu}>
-                ❤️ Favoritos  {favoritosCount > 0 && `(${favoritosCount})`}
+                <img className="favorito-imagen" src={IconoFavorito} alt="favoritos" /> Favoritos  {favoritosCount > 0 && `(${favoritosCount})`}
               </Link>
             </li>
           </ul>

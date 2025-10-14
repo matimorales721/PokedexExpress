@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react'
 import PokemonTarjeta from '../components/PokemonTarjeta'
+import Loading from '../images/loading.gif'
 
 
 function PokemonLista() {
 
   const [pokemones, setPokemones] = useState([])
-
 
   function getPokemons()
   {
@@ -39,7 +39,7 @@ function PokemonLista() {
   }
 
 
-  if (!pokemones) return <p>Cargando...</p>
+  if (!pokemones || pokemones.length === 0) return <div className='loading'><img src={Loading} alt="Cargando..." /></div>;
 
   return (
     <div className='pokemon-list'>

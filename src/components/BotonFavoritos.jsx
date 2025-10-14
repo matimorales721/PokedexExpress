@@ -1,5 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { addToFavoritos, removeFromFavoritos, selectIsFavorito } from '../store/favoritosSlice'
+import IconoFavorito from '../images/favorito.png'
+import IconoNoFavorito from '../images/no-favorito.png'
 
 function BotonFavoritos({ pokemon, className = "" }) {
   const dispatch = useDispatch()
@@ -24,9 +26,9 @@ function BotonFavoritos({ pokemon, className = "" }) {
       type="button"
     >
       {esFavorito ? (
-        <span className="heart-filled">❤️</span>
+        <span className="heart-filled"><img className='favorito-imagen' src={IconoFavorito} alt="Favorito" style={{ width: '20px', height: '20px' }} /></span>
       ) : (
-        <span className="heart-empty">🤍</span>
+        <span className="heart-empty"><img className='favorito-imagen' src={IconoNoFavorito} alt="No Favorito" style={{ width: '20px', height: '20px' }} /></span>
       )}
     </button>
   )
