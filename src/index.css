@@ -10,8 +10,8 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; 
-  --primary-green: #359c4b;
-  --light-green: #1f8f37;
+  --primary-red: #c62828;
+  --light-red: #d32f2f;
 }
 
 a {

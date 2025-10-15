@@ -8,12 +8,13 @@ import Navbar from './components/Navbar.jsx'
 import Footer from './pages/Footer.jsx'
 
 import imagenDeFondo from './images/pokeball_pattern.jpg'
+import imagenDeFondo2 from './images/fondo_negro_ash_pikachu.jpg'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 function App() {
 
   return (
-    <div className='imagen-fondo' style={{ backgroundImage: `url(${imagenDeFondo})`}}>
+    <div className='imagen-fondo' style={{ backgroundImage: `url(${imagenDeFondo2})`}}>
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
