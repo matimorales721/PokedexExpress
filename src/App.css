@@ -368,6 +368,112 @@ nav ul {
   margin: 0 auto;
 }
 
+/* Estilos para selector de generaciones */
+.generaciones-contenedor {
+  margin: 20px auto;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+}
+
+.generaciones-contenedor h3 {
+  color: #359c4b;
+  margin-bottom: 15px;
+  font-family: "Pokemon Solid", system-ui, sans-serif;
+  font-size: 1.4rem;
+}
+
+.generaciones-botones {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.btn-generacion {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px 8px;
+  background-color: #f0f0f0;
+  border: 2px solid #ccc;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.btn-generacion:hover {
+  background-color: #e8f5e8;
+  border-color: #359c4b;
+  transform: translateY(-2px);
+}
+
+.btn-generacion.activo {
+  background-color: #359c4b;
+  border-color: #2d8442;
+  color: white;
+  box-shadow: 0 4px 12px rgba(53, 156, 75, 0.3);
+}
+
+.btn-generacion:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.gen-numero {
+  font-size: 0.8rem;
+  font-weight: bold;
+  margin-bottom: 2px;
+}
+
+.gen-nombre {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.generacion-info {
+  margin: 15px auto;
+  padding: 10px;
+  background-color: rgba(53, 156, 75, 0.1);
+  border-radius: 10px;
+  max-width: 600px;
+}
+
+.generacion-info p {
+  margin: 0;
+  color: #2d5016;
+  font-size: 1rem;
+}
+
+.loading-more {
+  text-align: center;
+  margin: 20px 0;
+}
+
+/* Responsive para generaciones */
+@media screen and (max-width: 768px) {
+  .generaciones-botones {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 8px;
+  }
+  
+  .btn-generacion {
+    padding: 10px 6px;
+  }
+  
+  .gen-numero {
+    font-size: 0.7rem;
+  }
+  
+  .gen-nombre {
+    font-size: 0.8rem;
+  }
+}
+
 .pokemon-card-box {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
