@@ -58,7 +58,7 @@ function PokemonDetalle() {
         <h3 className='pokemon-detalle-info-titulo'>Tipos</h3>
         <div className='pokemon-detalle-info-valor tagBox'>
           {pokemon.types.map(type => (
-            <div className='type-badge tagTipo' key={type.type.name}>{type.type.name}</div>
+            <div className={`type-badge tagTipo type-${type.type.name}`} key={type.type.name}>{type.type.name}</div>
           ))}
         </div>
       </div>
