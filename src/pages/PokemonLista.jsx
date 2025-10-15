@@ -21,6 +21,11 @@ function PokemonLista() {
   const [generacionSeleccionada, setGeneracionSeleccionada] = useState(1) // Por defecto Kanto
   const [offset, setOffset] = useState(0) // Para paginación dentro de la generación
   const [cargando, setCargando] = useState(false)
+  
+  // Estados para el buscador
+  const [nombreBusqueda, setNombreBusqueda] = useState('')
+  const [mensajeError, setMensajeError] = useState('')
+  const [modoBusqueda, setModoBusqueda] = useState(false) // Para saber si estamos en modo búsqueda
 
   // Obtener Pokémon de una generación específica
   function getPokemonsPorGeneracion(generacionId, esCargarMas = false) {
@@ -80,17 +85,89 @@ function PokemonLista() {
     return match ? parseInt(match[1]) : null
   }
 
+  // Función auxiliar para determinar la generación de un Pokémon por su ID
+  const obtenerGeneracionPorId = (pokemonId) => {
+    for (const generacion of GENERACIONES) {
+      if (pokemonId >= generacion.rangoInicio && pokemonId <= generacion.rangoFin) {
+        return generacion.id
+      }
+    }
+    return 1 // Por defecto Kanto si no se encuentra
+  }
+
   // Cambiar generación
   const cambiarGeneracion = (generacionId) => {
     setGeneracionSeleccionada(generacionId)
     setOffset(0)
     setPokemones([])
+    setModoBusqueda(false)
+    setNombreBusqueda('')
+    setMensajeError('')
     getPokemonsPorGeneracion(generacionId, false)
   }
 
   // Cargar más Pokémon de la generación actual
   const cargarMasPokemones = () => {
     getPokemonsPorGeneracion(generacionSeleccionada, true)
+  }
+
+  // Buscar Pokémon por nombre o ID
+  const buscarPokemon = async () => {
+    if (!nombreBusqueda.trim()) {
+      setMensajeError('Por favor ingresa un nombre o ID de Pokémon')
+      return
+    }
+
+    setCargando(true)
+    setMensajeError('')
+    
+    try {
+      // Detectar si es un número (ID) o texto (nombre)
+      const busqueda = nombreBusqueda.trim()
+      const esNumero = /^\d+$/.test(busqueda)
+      
+      // Si es número, usar directamente; si es texto, convertir a minúsculas
+      const parametroBusqueda = esNumero ? busqueda : busqueda.toLowerCase()
+      
+      const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${parametroBusqueda}`)
+      
+      if (!response.ok) {
+        throw new Error('Pokémon no encontrado')
+      }
+      
+      const pokemon = await response.json()
+      
+      const pokemonMapeado = {
+        name: pokemon.name,
+        id: pokemon.id,
+        sprites: {
+          other: {
+            dream_world: {
+              front_default: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${pokemon.id}.svg`
+            }
+          }
+        }
+      }
+
+      // Determinar y actualizar la generación correspondiente
+      const generacionCorrespondiente = obtenerGeneracionPorId(pokemon.id)
+      setGeneracionSeleccionada(generacionCorrespondiente)
+
+      setPokemones([pokemonMapeado])
+      setModoBusqueda(true)
+      setCargando(false)
+      
+    } catch (error) {
+      setMensajeError(`No se encontró el Pokémon "${nombreBusqueda}". Verifica que el nombre o ID esté correcto.`)
+      setCargando(false)
+    }
+  }
+
+  // Manejar Enter en el input de búsqueda
+  const manejarEnterBusqueda = (e) => {
+    if (e.key === 'Enter') {
+      buscarPokemon()
+    }
   }
 
   // Verificar si hay más Pokémon para cargar => hay mas hasta mientras el offset sea menor al maximo
@@ -132,6 +209,36 @@ function PokemonLista() {
           ))}
         </div>
       </div>
+
+      {/* Buscador por nombre o ID */}
+      <div className='buscador-container'>
+        <h3>🔍 Buscar Pokémon por nombre o ID:</h3>
+        <div className='buscador-input-group'>
+          <input
+            type="text"
+            className='buscador-input'
+            placeholder="Ej: pikachu, charizard, 25, 150..."
+            value={nombreBusqueda}
+            onChange={(e) => setNombreBusqueda(e.target.value)}
+            onKeyPress={manejarEnterBusqueda}
+            disabled={cargando}
+          />
+          <button 
+            className='btn-buscar'
+            onClick={buscarPokemon}
+            disabled={cargando || !nombreBusqueda.trim()}
+          >
+            {cargando ? 'Buscando...' : 'Buscar'}
+          </button>
+        </div>
+        
+        {/* Mensaje de error */}
+        {mensajeError && (
+          <div className='mensaje-error'>
+            ⚠️ {mensajeError}
+          </div>
+        )}
+      </div>
       
       {/* Grid de Pokémon */}
       <div className='pokemon-card-box Container-Fondo-Transparente'>        
@@ -148,7 +255,7 @@ function PokemonLista() {
       )}
       
       {/* Botón cargar más */}
-      {hayMasPokemon() && !cargando && (
+      {hayMasPokemon() && !cargando && !modoBusqueda && (
         <button className='btn-cargar-mas' onClick={cargarMasPokemones}>
           Ver más Pokémon de {generacionActual?.nombre}
         </button>
