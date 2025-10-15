@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import pokebola from '../images/pokebola.png'
 import BotonFavoritos from '../components/BotonFavoritos'
@@ -9,6 +9,17 @@ function PokemonDetalle() {
   const { name } = useParams()
   const [pokemon, setPokemon] = useState(null)
   
+  // Función para reproducir el sonido del Pokémon
+  const reproducirSonidoPokemon = (pokemonData) => {
+    if (pokemonData.cries && pokemonData.cries.latest) {
+      const audio = new Audio(pokemonData.cries.latest)
+      audio.volume = 0.3 // Volumen moderado
+      audio.play().catch(error => {
+        console.log('No se pudo reproducir el sonido:', error)
+      })
+    }
+  }
+
   // Llamada a la API cuando name cambia
   useEffect(() => {
     fetch(`https://pokeapi.co/api/v2/pokemon/${name}`)
@@ -17,7 +28,10 @@ function PokemonDetalle() {
         fetch(data.species.url)
           .then(res => res.json())
           .then(speciesData => {
-            setPokemon({ ...data, species: speciesData })
+            const pokemonCompleto = { ...data, species: speciesData }
+            setPokemon(pokemonCompleto)
+            // Reproducir sonido cuando se carga el Pokémon
+            reproducirSonidoPokemon(data)
           }
         )})
   }, [name])
@@ -102,4 +116,3 @@ function PokemonDetalle() {
 }
 
 export default PokemonDetalle
-import { Link } from 'react-router-dom'
