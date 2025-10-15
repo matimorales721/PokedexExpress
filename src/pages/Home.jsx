@@ -2,17 +2,26 @@ import myGif from '../images/pokedex.gif'
 
 function Home() {
   return (
-    <div className='home'>
+    <div className='home Container-Fondo-Transparente'>
+      
       <div className='title'>Pokedex Express</div>
-
+      
+      <div className='home-text'>
+        <p className="home-subtitle">Tu Pokédex rápida para explorar, guardar a tus Pokémon favoritos.</p>
+        
+        <p className="home-lead">
+          Descubrí stats, tipos, movimientos y descripciones de la Pokédex.
+          {/* ¡Activá el sonido para escuchar sus cries! => AUN NO DESARROLLADO */}
+        </p>
+      </div>
       <img src={myGif} alt="pokedex" />
-      <button className='btn-ver-pokemons'>
-        <Link to="/pokemon">Ver Pokemons</Link>
-      </button>
-      <br />
-      <button className='btn-ver-pokemons'>
-        <Link to="/favoritos">Ver Favoritos</Link>
-      </button>
+      
+      <div className="home-botones">
+        <Link className="btn btn-primary btn-ver-pokemons" to="/pokemon">Explorar Pokémons</Link>
+        <Link className="btn btn-secondary btn-ver-pokemons" to="/favoritos">Ver Favoritos</Link>
+      </div>
+
+      <small className="home-text home-tip">Tip: tocá el corazón en cada tarjeta para marcarlo como Favorito!.</small>
       
     </div>
   )
