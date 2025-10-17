@@ -24,12 +24,16 @@ function Favoritos() {
 
   return (
     <div className='favoritos-page'>
+      <br />
       <div className='title'>Mis Favoritos ({favoritosCount})</div>
+      <br />
+      <br />
       <div className='pokemon-card-box Container-Fondo-Transparente'>
         {favoritos.map(pokemon => (
           <PokemonTarjeta key={pokemon.name} pokemon={pokemon} />
         ))}
       </div>
+      <br />
     </div>
   )
 }

@@ -9,11 +9,11 @@ function PokemonDetalle() {
   const { name } = useParams()
   const [pokemon, setPokemon] = useState(null)
   
-  // Función para reproducir el sonido del Pokémon
+  // Función para reproducir el cries del Pokémon
   const reproducirSonidoPokemon = (pokemonData) => {
     if (pokemonData.cries && pokemonData.cries.latest) {
       const audio = new Audio(pokemonData.cries.latest)
-      audio.volume = 0.3 // Volumen moderado
+      audio.volume = 0.15
       audio.play().catch(error => {
         console.log('No se pudo reproducir el sonido:', error)
       })
@@ -106,8 +106,8 @@ function PokemonDetalle() {
       </div>
 
       <div className='botoneraAnteriorSiguiente'>
-        {<button className='btn-anterior'><Link to={`/pokemon/${pokemon.id - 1}`}>Anterior</Link></button>}
-        {<button className='btn-siguiente'><Link to={`/pokemon/${pokemon.id + 1}`}>Siguiente</Link></button>}
+        {<Link className='btn-anterior' to={`/pokemon/${pokemon.id - 1}`}>Anterior</Link>}
+        {<Link className='btn-siguiente' to={`/pokemon/${pokemon.id + 1}`}>Siguiente</Link>}
       </div>
 
 

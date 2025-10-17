@@ -190,6 +190,7 @@ function PokemonLista() {
 
   return (
     <div className='pokemon-list'>
+      <br />
       <div className='title'>Lista de Pokémon</div>
       
       {/* Generaciones */}
@@ -256,10 +257,11 @@ function PokemonLista() {
       
       {/* Botón cargar más */}
       {hayMasPokemon() && !cargando && !modoBusqueda && (
-        <button className='btn-cargar-mas' onClick={cargarMasPokemones}>
+        <div className='btn-cargar-mas' onClick={cargarMasPokemones}>
           Ver más Pokémon de {generacionActual?.nombre}
-        </button>
+        </div>
       )}
+      <br />
     </div>
   )
 }
