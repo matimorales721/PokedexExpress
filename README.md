@@ -48,8 +48,8 @@ Una aplicación web moderna e interactiva de Pokédex desarrollada con React y V
 1. **Clona el repositorio**
 
    ```bash
-   git clone https://github.com/matimorales721/tp-final-react-matias-morales.git
-   cd tp-final-react-matias-morales
+   git clone https://github.com/matimorales721/PokedexExpress.git
+   cd PokedexExpress
    ```
 
 2. **Instala las dependencias**
